@@ -170,47 +170,47 @@ binary_sensor:
           - button.press: Reset
 
 sensor:
-  - platform: uptime
-    name: "Uptime Sensor"
-    id: uptime_sensor
-    entity_category: diagnostic
-    internal: true
+#  - platform: uptime
+#    name: "Uptime Sensor"
+#    id: uptime_sensor
+#    entity_category: diagnostic
+#    internal: true
 
   # Reports the WiFi signal strength/RSSI in dB
-  - platform: wifi_signal
-    name: "WiFi Signal dB"
-    id: wifi_signal_db
-    update_interval: 60s
-    entity_category: diagnostic
+#  - platform: wifi_signal
+#    name: "WiFi Signal dB"
+#    id: wifi_signal_db
+#    update_interval: 60s
+#    entity_category: diagnostic
 
   # Reports the WiFi signal strength in %
-  - platform: copy
-    source_id: wifi_signal_db
-    name: "WiFi Signal Percent"
-    filters:
-      - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
-    unit_of_measurement: "%"
-    entity_category: diagnostic
-    device_class: ""
+#  - platform: copy
+#    source_id: wifi_signal_db
+#    name: "WiFi Signal Percent"
+#    filters:
+#      - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
+#    unit_of_measurement: "%"
+#    entity_category: diagnostic
+#    device_class: ""
 
   - platform: cse7766
     id: athom_cse7766
-    current:
-      name: "Current"
-      icon: mdi:current-ac
-      filters:
-        - throttle_average: ${sensor_update_interval}
-        - lambda: if (x < 0.060) return 0.0; else return x;   #For the chip will report less than 3w power when no load is connected
-      on_value_range:
-        - above: ${current_limit}
-          then:
-            - switch.turn_off: relay
+#    current:
+#      name: "Current"
+#      icon: mdi:current-ac
+#      filters:
+#        - throttle_average: ${sensor_update_interval}
+#        - lambda: if (x < 0.060) return 0.0; else return x;   #For the chip will report less than 3w power when no load is connected
+#      on_value_range:
+#        - above: ${current_limit}
+#          then:
+#            - switch.turn_off: relay
 
-    voltage:
-      name: "Voltage"
-      icon: mdi:sine-wave
-      filters:
-        - throttle_average: ${sensor_update_interval}
+#    voltage:
+#      name: "Voltage"
+#      icon: mdi:sine-wave
+#      filters:
+#        - throttle_average: ${sensor_update_interval}
 
     power:
       name: "Power"
@@ -240,23 +240,23 @@ sensor:
               id(total_energy_sensor).update();
 
 
-    apparent_power:
-      name: "Apparent Power"
-      icon: mdi:power
-      filters:
-        - throttle_average: ${sensor_update_interval}
+#    apparent_power:
+#      name: "Apparent Power"
+#      icon: mdi:power
+#      filters:
+#        - throttle_average: ${sensor_update_interval}
 
-    reactive_power:
-      name: "Reactive Power"
-      icon: mdi:flash
-      filters:
-        - throttle_average: ${sensor_update_interval}
+#    reactive_power:
+#      name: "Reactive Power"
+#      icon: mdi:flash
+#      filters:
+#        - throttle_average: ${sensor_update_interval}
 
-    power_factor:
-      name: "Power Factor"
-      icon: mdi:percent-outline
-      filters:
-        - throttle_average: ${sensor_update_interval}
+#    power_factor:
+#      name: "Power Factor"
+#      icon: mdi:percent-outline
+#      filters:
+#        - throttle_average: ${sensor_update_interval}
 
   - platform: template
     name: "Total Energy"
@@ -322,10 +322,10 @@ button:
     id: Reset
     entity_category: config
 
-  - platform: safe_mode
-    name: "Safe Mode"
-    internal: false
-    entity_category: config
+#  - platform: safe_mode
+#    name: "Safe Mode"
+#    internal: false
+#    entity_category: config
 
 switch:
   - platform: gpio
@@ -351,47 +351,47 @@ text_sensor:
       name: "IP Address"
       icon: mdi:ip-network
       entity_category: diagnostic
-    ssid:
-      name: "Connected SSID"
-      icon: mdi:wifi-strength-2
-      entity_category: diagnostic
-    mac_address:
-      name: "Mac Address"
-      icon: mdi:network-pos
-      entity_category: diagnostic
+#    ssid:
+#      name: "Connected SSID"
+#      icon: mdi:wifi-strength-2
+#      entity_category: diagnostic
+#    mac_address:
+#      name: "Mac Address"
+#      icon: mdi:network-pos
+#      entity_category: diagnostic
 
   #  Creates a sensor showing when the device was last restarted
-  - platform: template
-    name: 'Last Restart'
-    id: device_last_restart
-    icon: mdi:clock
-    entity_category: diagnostic
+#  - platform: template
+#    name: 'Last Restart'
+#    id: device_last_restart
+#    icon: mdi:clock
+#    entity_category: diagnostic
 #    device_class: timestamp
 
   #  Creates a sensor of the uptime of the device, in formatted days, hours, minutes and seconds
-  - platform: template
-    name: "Uptime"
-    entity_category: diagnostic
-    lambda: |-
-      int seconds = (id(uptime_sensor).state);
-      int days = seconds / (24 * 3600);
-      seconds = seconds % (24 * 3600);
-      int hours = seconds / 3600;
-      seconds = seconds % 3600;
-      int minutes = seconds /  60;
-      seconds = seconds % 60;
-      if ( days > 3650 ) {
-        return { "Starting up" };
-      } else if ( days ) {
-        return { (String(days) +"d " + String(hours) +"h " + String(minutes) +"m "+ String(seconds) +"s").c_str() };
-      } else if ( hours ) {
-        return { (String(hours) +"h " + String(minutes) +"m "+ String(seconds) +"s").c_str() };
-      } else if ( minutes ) {
-        return { (String(minutes) +"m "+ String(seconds) +"s").c_str() };
-      } else {
-        return { (String(seconds) +"s").c_str() };
-      }
-    icon: mdi:clock-start
+#  - platform: template
+#    name: "Uptime"
+#    entity_category: diagnostic
+#    lambda: |-
+#      int seconds = (id(uptime_sensor).state);
+#      int days = seconds / (24 * 3600);
+#      seconds = seconds % (24 * 3600);
+#      int hours = seconds / 3600;
+#      seconds = seconds % 3600;
+#      int minutes = seconds /  60;
+#      seconds = seconds % 60;
+#      if ( days > 3650 ) {
+#        return { "Starting up" };
+#      } else if ( days ) {
+#        return { (String(days) +"d " + String(hours) +"h " + String(minutes) +"m "+ String(seconds) +"s").c_str() };
+#      } else if ( hours ) {
+#        return { (String(hours) +"h " + String(minutes) +"m "+ String(seconds) +"s").c_str() };
+#      } else if ( minutes ) {
+#        return { (String(minutes) +"m "+ String(seconds) +"s").c_str() };
+#      } else {
+#        return { (String(seconds) +"s").c_str() };
+#      }
+#    icon: mdi:clock-start
 
 time:
   - platform: sntp
