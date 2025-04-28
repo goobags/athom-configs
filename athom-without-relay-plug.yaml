@@ -241,10 +241,10 @@ button:
     name: "Restart"
     entity_category: config
 
-#  - platform: factory_reset
-#    name: "Factory Reset"
-#    id: Reset
-#    entity_category: config
+  - platform: factory_reset
+    name: "Factory Reset"
+    id: Reset
+    entity_category: config
 
 #  - platform: safe_mode
 #    name: "Safe Mode"
